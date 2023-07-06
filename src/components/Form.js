@@ -10,14 +10,11 @@ export default function Form({ onGetData }) {
   const submitHandler = function (event) {
     event.preventDefault();
 
-    setGetData((prev) => {
-      return {
-        ...prev,
-        currentSavings,
-        yearlySavings,
-        expectedInterests,
-        investmentDuration,
-      };
+    setGetData({
+      currentSavings,
+      yearlySavings,
+      expectedInterests,
+      investmentDuration,
     });
 
     onGetData(getData);
