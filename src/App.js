@@ -1,8 +1,10 @@
 import Header from "./components/Header";
 import Form from "./components/Form";
 import Table from "./components/Table";
+import { useState } from "react";
 
 function App() {
+  const [data, setData] = useState(null);
   const calculateHandler = (userInput) => {
     // Should be triggered when form is submitted
     // You might not directly want to bind it to the submit event on the form though...
@@ -29,17 +31,15 @@ function App() {
 
     // do something with yearlyData ...
 
-    console.log(yearlyData);
+    setData(yearlyData);
   };
 
   return (
     <div>
       <Header />
       <Form onGetData={calculateHandler} />
-
-      {/* Todo: Show below table conditionally (only once result data is available) */}
-      {/* Show fallback text if no data is available */}
-      <Table />
+      {!data && <p>NO INVESTMENT CALCULATED</p>}
+      {data && <Table data={data} />}
     </div>
   );
 }

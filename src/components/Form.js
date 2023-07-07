@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 const initialInput = {
-  "current-savings": 0,
+  "current-savings": 10000,
   "yearly-contribution": 1000,
   "expected-return": 10,
-  duration: 1,
+  duration: 7,
 };
 
 export default function Form({ onGetData }) {
@@ -18,8 +18,6 @@ export default function Form({ onGetData }) {
     event.preventDefault();
 
     onGetData(getData);
-
-    console.log(getData);
   };
 
   const inputChangeHandler = function (inputID, inputValue) {

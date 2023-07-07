@@ -1,6 +1,7 @@
-export default function Table() {
+export default function Table(props) {
   return (
     <table className="result">
+      {/* {console.log(props.data)} */}
       <thead>
         <tr>
           <th>Year</th>
@@ -11,13 +12,15 @@ export default function Table() {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>YEAR NUMBER</td>
-          <td>TOTAL SAVINGS END OF YEAR</td>
-          <td>INTEREST GAINED IN YEAR</td>
-          <td>TOTAL INTEREST GAINED</td>
-          <td>TOTAL INVESTED CAPITAL</td>
-        </tr>
+        {props.data.map((yearData) => (
+          <tr key={yearData.year}>
+            <td>{yearData.year}</td>
+            <td>{yearData.savingsEndOfYear}</td>
+            <td>{yearData.yearlyInterest}</td>
+            <td>{yearData.yearlyContribution}</td>
+            <td>TOTAL INVESTED CAPITAL</td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );
