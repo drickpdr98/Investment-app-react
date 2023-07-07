@@ -1,46 +1,34 @@
 import { useState } from "react";
 
+const initialInput = {
+  "current-savings": 0,
+  "yearly-contribution": 1000,
+  "expected-return": 10,
+  duration: 1,
+};
+
 export default function Form({ onGetData }) {
-  const [getData, setGetData] = useState({});
-  const [currentSavings, setCurrentSavings] = useState("");
-  const [yearlySavings, setYearlySavings] = useState("");
-  const [expectedInterests, setExpectedInterests] = useState("");
-  const [investmentDuration, setInvestmentDuration] = useState("");
+  const [getData, setGetData] = useState(initialInput);
+
+  const resetHandler = function () {
+    setGetData(initialInput);
+  };
 
   const submitHandler = function (event) {
     event.preventDefault();
 
-    setGetData({
-      currentSavings,
-      yearlySavings,
-      expectedInterests,
-      investmentDuration,
-    });
-
     onGetData(getData);
 
     console.log(getData);
-
-    setCurrentSavings("");
-    setYearlySavings("");
-    setExpectedInterests("");
-    setInvestmentDuration("");
   };
 
-  const getCurrentSavings = function (event) {
-    setCurrentSavings(event.target.value);
-  };
-
-  const getYearlySavings = function (event) {
-    setYearlySavings(event.target.value);
-  };
-
-  const getExpectedInterests = function (event) {
-    setExpectedInterests(event.target.value);
-  };
-
-  const getInvestmentDuration = function (event) {
-    setInvestmentDuration(event.target.value);
+  const inputChangeHandler = function (inputID, inputValue) {
+    setGetData((prevInput) => {
+      return {
+        ...prevInput,
+        [inputID]: inputValue,
+      };
+    });
   };
 
   return (
@@ -51,8 +39,10 @@ export default function Form({ onGetData }) {
           <input
             type="number"
             id="current-savings"
-            onChange={getCurrentSavings}
-            value={currentSavings}
+            onChange={(event) =>
+              inputChangeHandler("current-savings", event.target.value)
+            }
+            value={getData["current-savings"]}
           />
         </p>
         <p>
@@ -60,8 +50,10 @@ export default function Form({ onGetData }) {
           <input
             type="number"
             id="yearly-contribution"
-            onChange={getYearlySavings}
-            value={yearlySavings}
+            onChange={(event) =>
+              inputChangeHandler("yearly-contribution", event.target.value)
+            }
+            value={getData["yearly-contribution"]}
           />
         </p>
       </div>
@@ -73,8 +65,10 @@ export default function Form({ onGetData }) {
           <input
             type="number"
             id="expected-return"
-            onChange={getExpectedInterests}
-            value={expectedInterests}
+            onChange={(event) =>
+              inputChangeHandler("expected-return", event.target.value)
+            }
+            value={getData["expected-return"]}
           />
         </p>
         <p>
@@ -82,13 +76,15 @@ export default function Form({ onGetData }) {
           <input
             type="number"
             id="duration"
-            onChange={getInvestmentDuration}
-            value={investmentDuration}
+            onChange={(event) =>
+              inputChangeHandler("duration", event.target.value)
+            }
+            value={getData["duration"]}
           />
         </p>
       </div>
       <p className="actions">
-        <button type="reset" className="buttonAlt">
+        <button type="reset" className="buttonAlt" onClick={resetHandler}>
           Reset
         </button>
         <button type="submit" className="button">
